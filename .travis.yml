@@ -1,0 +1,17 @@
+language: c
+sudo: false
+os:
+  - linux
+  - osx
+  - windows
+install:
+  - source conda4travis.sh
+  - conda create -q -n testenv python
+  - conda activate testenv
+  - conda list
+script:
+  - mkdir empty; cd empty
+  - python -c "print('hello travis')"
+after_success:
+notifications:
+email: false
