@@ -14,4 +14,3 @@ script:
   - python -c "print('hello travis')"
 after_success:
 notifications:
-email: false
