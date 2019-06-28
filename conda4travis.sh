@@ -17,5 +17,7 @@ fi
 source $MINICONDA/etc/profile.d/conda.sh
 hash -r
 conda config --set always_yes yes
-conda update -q conda
+if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
+  conda update -q conda
+fi
 conda info -a
