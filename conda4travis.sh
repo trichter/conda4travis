@@ -12,7 +12,7 @@ else
   export MINICONDA=/c/miniconda
   MINICONDA_WIN=$(cygpath --windows $MINICONDA)
   choco install openssl.light
-  choco install miniconda3 --params="'/AddToPath:0 /D:$MINICONDA_WIN'"
+  choco install miniconda3 --version 4.6.14 --params="'/AddToPath:0 /D:$MINICONDA_WIN'"
 fi
 source $MINICONDA/etc/profile.d/conda.sh
 hash -r
