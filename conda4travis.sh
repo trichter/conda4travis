@@ -12,7 +12,11 @@ else
   export MINICONDA=/c/miniconda
   MINICONDA_WIN=$(cygpath --windows $MINICONDA)
   choco install openssl.light
-  choco install miniconda3 --version 4.6.14 --params="'/AddToPath:0 /D:$MINICONDA_WIN'"
+  choco install miniconda3 --params="'/AddToPath:0 /D:$MINICONDA_WIN'"
+  # the following line is necessary since conda 4.7
+  # see travis fail https://travis-ci.org/trichter/conda4travis/jobs/592665691
+  # see fix https://github.com/conda/conda/issues/8836#issuecomment-506388019
+  source $MINICONDA/Scripts/activate
 fi
 source $MINICONDA/etc/profile.d/conda.sh
 hash -r
