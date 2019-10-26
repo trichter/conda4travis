@@ -9,7 +9,7 @@ install:
   - conda activate testenv
   - conda list
   - python --version
-  - pip3 install --upgrade pip
+  - python -m pip install --upgrade pip
 script:
   - mkdir empty; cd empty
   - python -c "print('hello travis')"
