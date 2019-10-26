@@ -8,6 +8,8 @@ install:
   - conda create -q -n testenv python
   - conda activate testenv
   - conda list
+  - python --version
+  - pip3 install --upgrade pip
 script:
   - mkdir empty; cd empty
   - python -c "print('hello travis')"
