@@ -12,6 +12,6 @@ install:
   - python -m pip install --upgrade pip
 script:
   - mkdir empty; cd empty
-  - python -c "print('hello travis')"
+  - python -c "import sys ; print(f'Hello Travis on Python {sys.version.split()[0]}')"
 after_success:
 notifications:
