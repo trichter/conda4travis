@@ -1,27 +1,22 @@
 #!/bin/bash
+if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+  DOWNLOAD="MacOSX-x86_64.sh"
+elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+  DOWNLOAD="Linux-x86_64.sh"
+else
+  DOWNLOAD="Windows-x86_64.exe"
+fi
+wget https://repo.continuum.io/miniconda/Miniconda3-latest-$DOWNLOAD -O miniconda
 if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
-  if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-    DOWNLOAD="MacOSX"
-  elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-    DOWNLOAD="Linux"
-  fi
   export MINICONDA=$HOME/miniconda
-  wget https://repo.continuum.io/miniconda/Miniconda3-latest-${DOWNLOAD}-x86_64.sh -O miniconda.sh
-  bash miniconda.sh -b -p $MINICONDA
+  bash miniconda -b -p $MINICONDA
 else
   export MINICONDA=/c/miniconda
   MINICONDA_WIN=$(cygpath --windows $MINICONDA)
-  choco install openssl.light
-  choco install miniconda3 --params="'/AddToPath:0 /D:$MINICONDA_WIN'"
-  # the following line is necessary since conda 4.7
-  # see travis fail https://travis-ci.org/trichter/conda4travis/jobs/592665691
-  # see fix https://github.com/conda/conda/issues/8836#issuecomment-506388019
-  source $MINICONDA/Scripts/activate
+  ./miniconda /S /D=$MINICONDA_WIN
 fi
 source $MINICONDA/etc/profile.d/conda.sh
 hash -r
 conda config --set always_yes yes
-if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
-  conda update -q conda
-fi
+conda update -q conda
 conda info -a
