@@ -13,6 +13,14 @@ else
   MINICONDA_WIN=$(cygpath --windows $MINICONDA)
   choco install openssl.light
   choco install miniconda3 --params="'/AddToPath:0 /D:$MINICONDA_WIN'"
+  # The following lines remove bin directories from chocolatey.
+  # Otherwise f2py might find the pre-installed fortran compiler
+  # instead of the conda fortran compiler.
+  # See dicussion in https://github.com/trichter/toeplitz/pull/2
+  echo original PATH $PATH
+  PATH=$(echo "$PATH" | sed -e 's|:/c/ProgramData/chocolatey/bin||')
+  PATH=$(echo "$PATH" | sed -e 's|:/c/ProgramData/chocolatey/lib/mingw/tools/install/mingw64/bin||')
+  echo manipulated PATH $PATH
   # the following line is necessary since conda 4.7
   # see travis fail https://travis-ci.org/trichter/conda4travis/jobs/592665691
   # see fix https://github.com/conda/conda/issues/8836#issuecomment-506388019
