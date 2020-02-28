@@ -5,6 +5,7 @@ os:
   - windows
 install:
   - source conda4travis.sh
+  - echo $PATH
   - conda create -q -n testenv python
   - conda activate testenv
   - conda list
