@@ -6,6 +6,7 @@ os:
 install:
   - source conda4travis.sh
   - echo $PATH
+  - conda config --add channels conda-forge
   - conda create -q -n testenv fortran-compiler numpy
   - conda activate testenv
   - conda list
