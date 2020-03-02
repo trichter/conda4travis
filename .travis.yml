@@ -6,11 +6,12 @@ os:
 install:
   - source conda4travis.sh
   - echo $PATH
-  - conda create -q -n testenv python
+  - conda create -q -n testenv fortran-compiler numpy
   - conda activate testenv
   - conda list
 script:
-  - mkdir empty; cd empty
   - python -c "print('hello travis')"
+  - pip install test_fortran/
+  - python test_fortran/test_fortran.py
 after_success:
 notifications:
